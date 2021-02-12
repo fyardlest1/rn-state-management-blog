@@ -5,9 +5,17 @@ import { EvilIcons } from '@expo/vector-icons'
 
 const IndexScreen = ({ navigation }) => {
     const { state, deleteBlogPost, getBlogPosts } = useContext(Context)
+    // console.log(navigation)
 
     useEffect(() => {
         getBlogPosts()
+
+        const listener = navigation.addListener("focus", () => {
+            getBlogPosts()
+        })
+        return () => {
+            listener.remove()
+        }
     }, [])
 
     return (
